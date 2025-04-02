@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {Link, Navigate, useNavigate} from "react-router-dom";
-import "../css/Register.css"
 
 export default function Register(props) {
     const navigate = useNavigate()
