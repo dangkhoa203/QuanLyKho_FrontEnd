@@ -80,7 +80,7 @@ export default function ChitietSanPham(props) {
             name: content.data.name,
             pricePerUnit:content.data.pricePerUnit,
             measureUnit: content.data.measureUnit,
-            typeId: content.data.group!=null ? content.data.group.id : "",
+            typeId: "",
         })
         setProduct(content.data);
     }
@@ -260,7 +260,7 @@ export default function ChitietSanPham(props) {
                                                 name: product.name,
                                                 pricePerUnit: product.pricePerUnit,
                                                 measureUnit: product.measureUnit,
-                                                typeId: product.type!=null ? product.type.id : "",
+                                                typeId: "",
                                             })
                                         }}>Hủy
                                         </button>

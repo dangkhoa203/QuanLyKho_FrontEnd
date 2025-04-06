@@ -81,7 +81,7 @@ export default function ChitietKhachHang(props) {
             address: content.data.address,
             email: content.data.email,
             phoneNumber: content.data.phoneNumber,
-            groupId: content.data.group != null ? content.data.group.id : "",
+            groupId: "",
         })
         setCustomer(content.data);
     }
@@ -286,7 +286,7 @@ export default function ChitietKhachHang(props) {
                                                         address: customer.address,
                                                         email: customer.email,
                                                         phoneNumber: customer.phoneNumber,
-                                                        groupId: customer.group != null ? customer.group.id : "",
+                                                        groupId: "",
                                             })
                                         }}>Hủy
                                         </button>
