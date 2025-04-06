@@ -11,37 +11,37 @@ import ChangeName from "./Account/ChangeName"
 import ConfirmEmailChange from "./Account/ConfirmEmailChange"
 import ForgetPassword from "./ForgetPassword"
 import ResetPassword from "./ResetPassword"
-// import NhaCungCap from "./NhaCungCap/NhaCungCap.jsx";
-// import NhomNhaCungCap from "./NhomNhaCungCap/NhomNhaCungCap.jsx";
-// import ChitietNhomNhaCungCap from "./NhomNhaCungCap/ChitietNhomNhaCungCap.jsx";
-// import NewNhomNhaCungCap from "./NhomNhaCungCap/NewNhomNhaCungCap.jsx";
-// import NewNhaCungCap from "./NhaCungCap/NewNhaCungCap.jsx";
-// import ChitietNhaCungCap from "./NhaCungCap/ChitietNhaCungCap.jsx";
-// import NhomKhachHang from "./NhomKhachHang/NhomKhachHang.jsx";
-// import NewNhomKhachHang from "./NhomKhachHang/NewNhomKhachHang.jsx";
-// import ChitietNhomKhachHang from "./NhomKhachHang/ChitietNhomKhachHang.jsx";
-// import KhachHang from "./KhachHang/KhachHang.jsx";
-// import ChitietKhachHang from "./KhachHang/ChitietKhachHang.jsx";
-// import NewKhachHang from "./KhachHang/NewKhachHang.jsx";
-// import LoaiSanPham from "./LoaiSanPham/LoaiSanPham.jsx";
-// import NewLoaiSanPham from "./LoaiSanPham/NewLoaiSanPham.jsx";
-// import ChitietLoaiSanPham from "./LoaiSanPham/ChitietLoaiSanPham.jsx";
-// import SanPham from "./SanPham/SanPham.jsx";
-// import NewSanPham from "./SanPham/NewSanPham.jsx";
-// import ChitietSanPham from "./SanPham/ChitietSanPham.jsx";
-// import HoaDonNhapHang from "./HoaDonNhapHang/HoaDonNhapHang.jsx";
-// import NewHoaDonNhapHang from "./HoaDonNhapHang/NewHoaDonNhapHang.jsx";
-// import ChiTietHoaDonNhapHang from "./HoaDonNhapHang/ChiTietHoaDonNhapHang.jsx";
-// import PhieuNhapKho from "./PhieuNhapKho/PhieuNhapKho.jsx";
-// import NewPhieuNhapKho from "./PhieuNhapKho/NewPhieuNhapKho.jsx";
-// import ChitietPhieuNhapKho from "./PhieuNhapKho/ChitietPhieuNhapKho.jsx";
-// import TonKho from "./TonKho/TonKho.jsx";
-// import HoaDonMuaHang from "./HoaDonMuaHang/HoaDonMuaHang.jsx";
-// import NewHoaDonMuaHang from "./HoaDonMuaHang/NewHoaDonMuaHang.jsx";
-// import ChitietHoaDonMuaHang from "./HoaDonMuaHang/ChitietHoaDonMuaHang.jsx";
-// import PhieuXuatKho from "./PhieuXuatKho/PhieuXuatKho.jsx";
-// import NewPhieuXuatKho from "./PhieuXuatKho/NewPhieuXuatKho.jsx";
-// import ChitietPhieuXuatKho from "./PhieuXuatKho/ChitietPhieuXuatKho.jsx";
+import NhaCungCap from "./NhaCungCap/NhaCungCap.jsx";
+import NhomNhaCungCap from "./NhomNhaCungCap/NhomNhaCungCap.jsx";
+import ChitietNhomNhaCungCap from "./NhomNhaCungCap/ChitietNhomNhaCungCap.jsx";
+import NewNhomNhaCungCap from "./NhomNhaCungCap/NewNhomNhaCungCap.jsx";
+import NewNhaCungCap from "./NhaCungCap/NewNhaCungCap.jsx";
+import ChitietNhaCungCap from "./NhaCungCap/ChitietNhaCungCap.jsx";
+import NhomKhachHang from "./NhomKhachHang/NhomKhachHang.jsx";
+import NewNhomKhachHang from "./NhomKhachHang/NewNhomKhachHang.jsx";
+import ChitietNhomKhachHang from "./NhomKhachHang/ChitietNhomKhachHang.jsx";
+import KhachHang from "./KhachHang/KhachHang.jsx";
+import ChitietKhachHang from "./KhachHang/ChitietKhachHang.jsx";
+import NewKhachHang from "./KhachHang/NewKhachHang.jsx";
+import LoaiSanPham from "./LoaiSanPham/LoaiSanPham.jsx";
+import NewLoaiSanPham from "./LoaiSanPham/NewLoaiSanPham.jsx";
+import ChitietLoaiSanPham from "./LoaiSanPham/ChitietLoaiSanPham.jsx";
+import SanPham from "./SanPham/SanPham.jsx";
+import NewSanPham from "./SanPham/NewSanPham.jsx";
+import ChitietSanPham from "./SanPham/ChitietSanPham.jsx";
+import HoaDonNhapHang from "./HoaDonNhapHang/HoaDonNhapHang.jsx";
+import NewHoaDonNhapHang from "./HoaDonNhapHang/NewHoaDonNhapHang.jsx";
+import ChiTietHoaDonNhapHang from "./HoaDonNhapHang/ChiTietHoaDonNhapHang.jsx";
+import PhieuNhapKho from "./PhieuNhapKho/PhieuNhapKho.jsx";
+import NewPhieuNhapKho from "./PhieuNhapKho/NewPhieuNhapKho.jsx";
+import ChitietPhieuNhapKho from "./PhieuNhapKho/ChitietPhieuNhapKho.jsx";
+import TonKho from "./TonKho/TonKho.jsx";
+import HoaDonMuaHang from "./HoaDonMuaHang/HoaDonMuaHang.jsx";
+import NewHoaDonMuaHang from "./HoaDonMuaHang/NewHoaDonMuaHang.jsx";
+import ChitietHoaDonMuaHang from "./HoaDonMuaHang/ChitietHoaDonMuaHang.jsx";
+import PhieuXuatKho from "./PhieuXuatKho/PhieuXuatKho.jsx";
+import NewPhieuXuatKho from "./PhieuXuatKho/NewPhieuXuatKho.jsx";
+import ChitietPhieuXuatKho from "./PhieuXuatKho/ChitietPhieuXuatKho.jsx";
 import ChangePassWord from "./Account/ChangePassword.jsx";
 import ConfirmPasswordChange from "./Account/ConfirmPasswordChange.jsx";
 export default function RouteComponent(props) {
@@ -49,7 +49,7 @@ export default function RouteComponent(props) {
     return (<>
         <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home user={props.user} />}></Route>
-            {/* <Route path="/NhaCungCap" >
+            <Route path="/NhaCungCap" >
                 <Route index element={<NhaCungCap user={props.user}/>} />
                 <Route path=":id" element={<ChitietNhaCungCap user={props.user}/>}></Route>
                 <Route path="Tao" element={<NewNhaCungCap user={props.user}/>}></Route>
@@ -120,7 +120,7 @@ export default function RouteComponent(props) {
 
             <Route path="/TonKho" >
                 <Route index element={<TonKho user={props.user}/>} />
-            </Route> */}
+            </Route> 
             <Route path="/Login" element={<Login user={props.user} getInfo={props.getInfo}></Login>}></Route>
             <Route path="/QuenMatKhau" element={<ForgetPassword navigate={props.navigate} user={props.user}/>}></Route>
             <Route path="/ResetMatKhau/:id/:code" element={<ResetPassword navigate={props.navigate} isLogged={props.user.isLogged}/>}></Route>

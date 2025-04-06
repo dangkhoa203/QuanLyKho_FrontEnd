@@ -4,11 +4,11 @@ import {Link, Navigate} from "react-router-dom";
 import {useTheme} from "@table-library/react-table-library/theme";
 import {SortToggleType, useSort} from "@table-library/react-table-library/sort";
 import {usePagination} from "@table-library/react-table-library/pagination";
-export default function LoaiSanPham(props){
+export default function PhieuNhapKho(props){
     const [nodes,setNodes]=useState([]);
     const [err,setError]=useState("");
-    const getDs = async () =>{
-        const response = await fetch('https://warehouseservice.azurewebsites.net/api/Product-Types', {
+    const getList = async () =>{
+        const response = await fetch('https://warehouseservice.azurewebsites.net/api/import-forms', {
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
             method:"GET"
@@ -18,15 +18,12 @@ export default function LoaiSanPham(props){
             throw Error(text);
         }
         const content = await response.json();
-        setNodes(content.data);
+        setNodes(content.data)
     }
 
-    useEffect(() => {
-        document.title = 'Loại sản phẩm';
-        getDs()
-    }, []);
 
 
+    //Table
     const data = { nodes };
     const sort = useSort(
         data,
@@ -37,9 +34,9 @@ export default function LoaiSanPham(props){
             sortToggleType: SortToggleType.AlternateWithReset,
             sortFns: {
                 id: (array) => array.sort((a, b) => a.id.localeCompare(b.id)),
-                ten: (array) => array.sort((a, b) => a.name.localeCompare(b.name)),
+                idhoadon: (array) => array.sort((a, b) => a.receipt.id.localeCompare(b.receipt.id)),
+                ngaynhap: (array) => array.sort((a, b) => a.dateOfImport - b.dateOfImport),
                 ngaytao: (array) => array.sort((a, b) => a.dateCreated - b.dateCreated),
-                mota: (array) => array.sort((a, b) => a.description.localeCompare(b.description)),
             },
         }
     );
@@ -76,10 +73,15 @@ export default function LoaiSanPham(props){
       `,
     });
     const COLUMNS = [
-        { label: 'Id', renderCell: (item) => <Link className="link link-warning link-underline-opacity-0 fw-bolder" to={item.id}>{item.id} </Link>,sort: { sortKey: "id" }},
-        { label: 'Tên', renderCell: (item) => item.name,sort: { sortKey: "ten" }},
-        { label: 'Ngày tạo', renderCell: (item) => new Date(item.dateCreated).toLocaleString('En-GB', { hour12: false }),sort: { sortKey: "ngaytao" } },
-        { label: 'Mô tả', renderCell: (item) => item.description==="" ? "Không có mô tả":item.description,sort: { sortKey: "mota" } },
+        { label: 'Id', renderCell: (item) => <Link className="link link-warning link-underline-opacity-0 fw-bolder" to={item.id}>{item.id} </Link>, sort: { sortKey: "id" }},
+        {label: 'Ngày nhập', renderCell: (item) => new Date(item.dateOfImport).toLocaleString('En-GB', {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour12: false
+            }), sort: { sortKey: "ngaynhap" }},
+        { label: 'Ngày tạo', renderCell: (item) => new Date(item.dateCreated).toLocaleString('En-GB', { hour12: false }), sort: { sortKey: "ngaytao" } },
+        { label: 'Hóa đơn nhập hàng', renderCell: (item) => <Link className="link link-warning link-underline-opacity-0 fw-bolder" to={`/HoaDonNhapHang/${item.receipt.id}`}>{item.receipt.id} </Link>, sort: { sortKey: "idhoadon" } },
     ];
     const pagination = usePagination(data, {
         state: {
@@ -93,10 +95,16 @@ export default function LoaiSanPham(props){
     if(!props.user.isLogged && props.user.userId===""){
         return <Navigate to="/login"></Navigate>
     }
+    //UseEffect
+    useEffect(() => {
+        document.title = 'Phiếu nhập kho';
+        getList()
+    }, []);
+
     return (<>
         <div className="p-5 pt-0">
-            <h1 className="pt-4 page-header text-center">Danh sách loại sản phẩm</h1>
-            <Link className="btn btn-success rounded-0 border-2 fw-bold mb-2" to="tao"><i className="bi bi-plus-circle"> Tạo thêm loại</i></Link>
+            <h1 className="pt-4 page-header text-center">Danh sách phiếu nhập kho</h1>
+            <Link className="btn btn-success rounded-0 border-2 fw-bold mb-2" to="tao"><i className="bi bi-plus-circle"> Tạo thêm phiếu nhập kho</i></Link>
             <CompactTable columns={COLUMNS} data={data} theme={theme} sort={sort}
                           layout={{custom: true, horizontalScroll: true}} pagination={pagination}/>
             {nodes.length === 0 ? <p className="text-center">Không có dữ liệu </p> :

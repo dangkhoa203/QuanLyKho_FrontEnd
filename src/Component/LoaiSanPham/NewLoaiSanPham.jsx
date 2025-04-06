@@ -58,7 +58,7 @@ export default function NewLoaiSanPham(props){
             <div className="container d-flex justify-content-center p-5 ">
                 <form className="w-50 border border-3 rounded-4 p-3 bg-white d-flex justify-content-center flex-column"
                       onSubmit={handleSubmit(onSubmit)}>
-                    <p className="h1 text-center page-header mb-3">Tạo nhóm sản phẩm</p>
+                    <p className="h1 text-center page-header mb-3">Tạo loại sản phẩm</p>
                     <button type={"button"} className="btn btn-outline-dark border-3 fw-bold  text-start mb-2"
                             style={{width: "120px"}}
                             onClick={() => navigate(-1)}><i className="bi bi-backspace"> Quay về</i></button>

@@ -1,51 +1,27 @@
-import {useState,useEffect} from "react";
-import { CompactTable } from '@table-library/react-table-library/compact';
+import {useEffect, useState} from "react";
 import {Link, Navigate} from "react-router-dom";
-import {useTheme} from "@table-library/react-table-library/theme";
+import {CompactTable} from "@table-library/react-table-library/compact";
+import { useTheme } from "@table-library/react-table-library/theme";
 import {SortToggleType, useSort} from "@table-library/react-table-library/sort";
 import {usePagination} from "@table-library/react-table-library/pagination";
-export default function LoaiSanPham(props){
-    const [nodes,setNodes]=useState([]);
-    const [err,setError]=useState("");
-    const getDs = async () =>{
-        const response = await fetch('https://warehouseservice.azurewebsites.net/api/Product-Types', {
-            headers: { 'Content-Type': 'application/json' },
+export default function HoaDonMuaHang(props) {
+    const [err, setError] = useState("");
+    async function getList() {
+        const response = await fetch('https://warehouseservice.azurewebsites.net/api/customer-Receipts', {
+            headers: {'Content-Type': 'application/json'},
             credentials: 'include',
-            method:"GET"
+            method: "GET"
         });
         if (!response.ok) {
             const text = await response.text();
             throw Error(text);
         }
         const content = await response.json();
-        setNodes(content.data);
+        setNodes(content.data)
     }
 
-    useEffect(() => {
-        document.title = 'Loại sản phẩm';
-        getDs()
-    }, []);
 
-
-    const data = { nodes };
-    const sort = useSort(
-        data,
-        {
-            onChange: onSortChange,
-        },
-        {
-            sortToggleType: SortToggleType.AlternateWithReset,
-            sortFns: {
-                id: (array) => array.sort((a, b) => a.id.localeCompare(b.id)),
-                ten: (array) => array.sort((a, b) => a.name.localeCompare(b.name)),
-                ngaytao: (array) => array.sort((a, b) => a.dateCreated - b.dateCreated),
-                mota: (array) => array.sort((a, b) => a.description.localeCompare(b.description)),
-            },
-        }
-    );
-    function onSortChange(action, state) {
-
-    }
+    //Table
     const theme = useTheme({
         HeaderRow: `
         .th {
@@ -76,11 +52,35 @@ export default function LoaiSanPham(props){
       `,
     });
     const COLUMNS = [
-        { label: 'Id', renderCell: (item) => <Link className="link link-warning link-underline-opacity-0 fw-bolder" to={item.id}>{item.id} </Link>,sort: { sortKey: "id" }},
-        { label: 'Tên', renderCell: (item) => item.name,sort: { sortKey: "ten" }},
-        { label: 'Ngày tạo', renderCell: (item) => new Date(item.dateCreated).toLocaleString('En-GB', { hour12: false }),sort: { sortKey: "ngaytao" } },
-        { label: 'Mô tả', renderCell: (item) => item.description==="" ? "Không có mô tả":item.description,sort: { sortKey: "mota" } },
+        {label: 'Id', renderCell: (item) => <Link className="link link-warning link-underline-opacity-0 fw-bolder" to={item.id}>{item.id}</Link>,sort: { sortKey: "id" }},
+        {label: 'Ngày thanh toán', renderCell: (item) => new Date(item.dateOfOrder).toLocaleString('En-GB', {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour12: false
+            }),sort: { sortKey: "ngaythanhtoan" }},
+        {label: 'Tên khách hàng', renderCell: (item) => item.customer.name,sort: { sortKey: "tenhacungcap" }},
+        {label: 'Ngày tạo', renderCell: (item) => new Date(item.dateCreated).toLocaleString('En-GB', {hour12: false}),sort: { sortKey: "ngaytao" }},
     ];
+    const [nodes, setNodes] = useState([]);
+    const data = {nodes};
+    const sort = useSort(
+        data,
+        {
+            onChange: onSortChange,
+        },
+        {
+            sortToggleType: SortToggleType.AlternateWithReset,
+            sortFns: {
+                id: (array) => array.sort((a, b) => a.id.localeCompare(b.id)),
+                tennhacungcap: (array) => array.sort((a, b) => a.vendor.name.localeCompare(b.vendor.name)),
+                ngaythanhtoan: (array) => array.sort((a, b) => a.dateOrder - b.dateOrder),
+                ngaytao: (array) => array.sort((a, b) => a.dateCreated - b.dateCreated),
+            },
+        }
+    );
+    function onSortChange(action, state) {
+    }
     const pagination = usePagination(data, {
         state: {
             page: 0,
@@ -90,13 +90,19 @@ export default function LoaiSanPham(props){
     });
     function onPaginationChange(action, state) {
     }
+    //UseEffect
+    useEffect(() => {
+        document.title = 'Hóa đơn mua hàng';
+        getList()
+    }, []);
+
     if(!props.user.isLogged && props.user.userId===""){
         return <Navigate to="/login"></Navigate>
     }
     return (<>
         <div className="p-5 pt-0">
-            <h1 className="pt-4 page-header text-center">Danh sách loại sản phẩm</h1>
-            <Link className="btn btn-success rounded-0 border-2 fw-bold mb-2" to="tao"><i className="bi bi-plus-circle"> Tạo thêm loại</i></Link>
+            <h1 className="pt-4 page-header text-center">Danh sách hoá đơn mua hàng</h1>
+            <Link className="btn btn-success rounded-0 border-2 fw-bold mb-2" to="tao"><i className="bi bi-plus-circle"> Tạo thêm hoá đơn mua hàng</i></Link>
             <CompactTable columns={COLUMNS} data={data} theme={theme} sort={sort}
                           layout={{custom: true, horizontalScroll: true}} pagination={pagination}/>
             {nodes.length === 0 ? <p className="text-center">Không có dữ liệu </p> :

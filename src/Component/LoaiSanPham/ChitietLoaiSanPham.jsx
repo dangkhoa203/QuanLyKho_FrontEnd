@@ -67,8 +67,8 @@ export default function ChitietLoaiSanPham(props) {
         });
         if (!response.ok) {
             navigate("/Error")
-        }
-        navigate("/NhomSanPham");
+        }else
+        navigate("/LoaiSanPham");
     }
     useEffect(() => {
         document.title = `Loại sản phẩm - ${id}`;
