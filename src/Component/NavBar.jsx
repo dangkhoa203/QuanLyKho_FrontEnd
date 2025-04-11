@@ -6,18 +6,26 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"
 import "/src/css/navbar.css"
 import Accordion from 'react-bootstrap/Accordion';
+import {Spinner} from "react-bootstrap";
 export default function NavBar(props) {
     const [show, setShow] = useState(false);
+    const [logOutLoading, setLogOutLoading] = useState(false);
     const navigate=useNavigate()
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const logout = async () => {
-        await fetch('https://warehouseservice.azurewebsites.net/api/Account/LogOut', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-        });
-        props.getInfo()
+        try{
+            setLogOutLoading(true);
+            await fetch('https://warehouseservice.azurewebsites.net/api/Account/LogOut', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+            });
+            props.getInfo()
+        }catch(error){
+        }finally {
+            setLogOutLoading(false);
+        }
     };
     let menu;
     if (!props.user.isLogged) {
@@ -28,7 +36,7 @@ export default function NavBar(props) {
         menu = (
             <div className="d-flex gap-2 w-100 justify-content-between  p-2 pt-0 mb-1 pb-0">
               <Link to="/TaiKhoan" className="link-light link-underline-opacity-0 h-100 fs-3">{props.user.userFullName}</Link>
-                <button  className="btn btn-success rounded-0 fw-light border-3" onClick={logout}>LOGOUT</button>
+                <button  className="btn btn-outline-dark rounded-0 fw-light border-3" style={{height:"50px",minWidth:"104px"}} onClick={logout} disabled={logOutLoading}>{logOutLoading ? <Spinner size="sm" animation="border" /> : "Đăng xuất"}</button>
             </div>)
             }
             return (

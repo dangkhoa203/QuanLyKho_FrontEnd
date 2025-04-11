@@ -76,7 +76,7 @@ export default function NewPhieuNhapKho(props){
                     <div className="d-flex flex-column">
                         <div className="form-floating mb-3">
                             <input type={"date"} defaultValue={date} className="form-control rounded-0 border-3"
-                                   id="floatingInput" {...register("dateOfOrder")} placeholder="Tên"/>
+                                   id="floatingInput" {...register("DateOfImport")} placeholder="Tên"/>
                             <label htmlFor="floatingInput">Ngày nhập </label>
                         </div>
                         <div className="form-floating mb-1">

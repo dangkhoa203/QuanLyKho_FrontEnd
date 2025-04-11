@@ -2,9 +2,10 @@ import {useEffect, useState} from "react";
 import {useTheme} from "@table-library/react-table-library/theme";
 import {CompactTable} from "@table-library/react-table-library/compact";
 import * as XLSX from "xlsx";
-import {Navigate} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import {SortToggleType, useSort} from "@table-library/react-table-library/sort";
 import {usePagination} from "@table-library/react-table-library/pagination";
+import {Container, Dropdown, DropdownButton, Form, InputGroup} from "react-bootstrap";
 
 export default function TonKho(props) {
     const [loading, setLoading] = useState(false);
@@ -122,9 +123,44 @@ export default function TonKho(props) {
         }
         return true
     }
+    const [mode, setMode] = useState(1)
+    const [search, setSearch] = useState("");
+    const [searchLabel, setSearchLabel] = useState("Id");
+    useEffect(() => {
+        switch (mode){
+            case 1:
+                setSearchLabel("Id");
+                break;
+            case 2:
+                setSearchLabel("Tên");
+                break;
+            case 3:
+                setSearchLabel("Số lượng");
+                break;
+            default:
+                setSearchLabel("Id");
+                break;
 
+        }
+    },[mode])
     //Table
-    const data = {nodes};
+    let data = {nodes};
+    data={ nodes: data.nodes.filter((item) =>{
+                switch (mode){
+                    case 1:
+                        return  item.productId.toLowerCase().includes(search.toLowerCase())
+                    case 2:
+                        return  item.productName.toLowerCase().includes(search.toLowerCase())
+                    case 3:
+                        return  item.quantity.toString().toLowerCase().includes(search.toLowerCase())
+                    default:
+                        return item.id.toLowerCase().includes(search.toLowerCase())
+
+                }
+
+            }
+        ),
+    }
     const sort = useSort(
         data,
         {
@@ -158,25 +194,33 @@ export default function TonKho(props) {
         HeaderRow: `
         .th {
           border: 1px solid black;
+          font-size: 1.2em;
           border-bottom: 3px solid black;
            background-color: #009063;
+           text-align: center;
+           div{
+            margin: auto;
+           }
         }
       `,
         BaseCell: `
         
       `,
         Row: `
-        cursor: pointer;
+         cursor: pointer;
         .td {
           border: 1px solid black;
-          background-color: #007ed4;
-          transition: all 0.2s ease-in-out;
+          font-size:1.1em;
+          font-weight: lighter;
+          background-color: #1D243A;
+          text-align: center;
+          color: white;
+           transition: 0.3s all ease-in-out;
         }
 
         &:hover .td {
-          border-top: 1px solid yellow;
-          border-bottom: 1px solid yellow;
-          transition: all 0.2s ease-in-out;
+          background-color: #434656;
+           transition: 0.3s all ease-in-out;
         }
       `,
         Table: `
@@ -196,15 +240,15 @@ export default function TonKho(props) {
             label: '', renderCell: (item) =>
                 editMode ?
                     editTurn === item.productId ?
-                        <div className="d-flex gap-5 justify-content-center align-items-center">
-                            <button className="btn btn-secondary" onClick={() => {
+                        <div className="d-flex gap-2 justify-content-center align-items-center">
+                            <button style={{width:"150px"}} className="btn btn-outline-danger fw-bolder rounded-0" onClick={() => {
                                 setEditTurn("")
                                 setEditMode(false)
                                 CancelEdit(item.productId, editOldValue)
                                 setEditOldValue(0)
                             }}>Hủy
                             </button>
-                            <button className="btn btn-warning" onClick={() => {
+                            <button style={{width:"150px"}} className="btn btn-outline-success fw-bolder rounded-0" onClick={() => {
                                 if (!Update(item.productId, item.quantity)) {
                                     setError("Lỗi")
                                     setEditTurn("")
@@ -220,14 +264,14 @@ export default function TonKho(props) {
                             </button>
                         </div> : ""
                     :
-                    <div className="d-flex gap-5 justify-content-center align-items-center">
-                        <button className="btn btn-warning" onClick={() => {
+                    <div className="d-flex gap-2 justify-content-center align-items-center">
+                        <button style={{width:"150px"}} className="btn btn-outline-success fw-bolder rounded-0" onClick={() => {
                             setEditTurn(item.productId)
                             setEditMode(true)
                             setEditOldValue(item.quantity)
                         }}>Thay đổi
                         </button>
-                        <button className="btn btn-danger" onClick={() => {
+                        <button style={{width:"150px"}} className="btn btn-outline-danger fw-bolder rounded-0" onClick={() => {
                             setDeleteModal(true)
                             setDeleteModel({
                                 id: item.productId,
@@ -300,6 +344,10 @@ export default function TonKho(props) {
 
         }
     }
+    const handleSearch = (event) => {
+        setSearch(event.target.value);
+        pagination.fns.onSetPage(0)
+    };
     //UseEffect
     useEffect(() => {
         document.title = 'Tồn kho';
@@ -333,22 +381,36 @@ export default function TonKho(props) {
                 :
                 <div>
                     {!addMode ?
-                        <div className="d-flex gap-3">
-                            <button className="btn btn-success rounded-0 fw-bold border-3 mb-3"
-                                    onClick={() => setAddMode(true)}><i className="bi bi-plus-circle"> Thêm
-                                sản phẩm vào
-                                kho</i>
-                            </button>
-                            <button className={`btn btn-success rounded-0 fw-bold border-3 mb-3 ${nodes.length<=0? "disabled btn-outline-secondary":""} `}
-                                    onClick={() => downloadExcel(nodes)}>Tạo ra file Excel
-                            </button>
-                        </div>
+                        <Container fluid className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
+                            <div className="d-flex gap-3">
+                                <button className="btn btn-success rounded-0 fw-bold border-3 mb-3"
+                                        onClick={() => setAddMode(true)}><i className="bi bi-plus-circle"> Thêm
+                                    sản phẩm vào
+                                    kho</i>
+                                </button>
+                                <button className={`btn btn-success rounded-0 fw-bold border-3 mb-3 ${nodes.length<=0? "disabled btn-outline-secondary":""} `}
+                                        onClick={() => downloadExcel(nodes)}>Tạo ra file Excel
+                                </button>
+                            </div>
+                            <InputGroup style={{width:"400px"}} className="mb-3 rounded-0">
+                                <DropdownButton
+                                    variant="success"
+                                    title={searchLabel}
+
+                                >
+                                    <Dropdown.Item onClick={()=>setMode(1)}>Id</Dropdown.Item>
+                                    <Dropdown.Item onClick={()=>setMode(2)}>Tên</Dropdown.Item>
+                                    <Dropdown.Item onClick={()=>setMode(3)}>Số lượng</Dropdown.Item>
+                                </DropdownButton>
+                                <Form.Control value={search} placeholder="Search" onChange={handleSearch}  />
+                            </InputGroup>
+                        </Container>
                         :
                         <div className="d-flex flex-column">
                             <div>
                                 {!addMode ?
                                     <div>
-                                        <button className="btn btn-success" onClick={() => setAddMode(true)}>Thêm sản
+                                        <button className="btn btn-success rounded-0" onClick={() => setAddMode(true)}>Thêm sản
                                             phẩm vào
                                             kho
                                         </button>
@@ -399,7 +461,7 @@ export default function TonKho(props) {
           Trang:{" "}
                            {pagination.state.getPages(data.nodes).map((_, index) => (
                                <button
-                                   className={`btn ${pagination.state.page === index ? "btn-primary" : "btn-outline-primary"} btn-sm`}
+                                   className={`btn ${pagination.state.page === index ? "btn-success" : "btn-outline-success"} btn-sm`}
                                    key={index}
                                    type="button"
                                    style={{

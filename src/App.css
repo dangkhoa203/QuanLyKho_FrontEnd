@@ -1,7 +1,7 @@
 ﻿.App{
     height: 100%;
     padding-top: 60px;
-    background: linear-gradient(105deg, rgba(218,218,230,1) 0%, rgba(255,254,254,1) 99%);
+    background: #eae7e7;
 }
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@100..900&display=swap');
 * {
@@ -42,4 +42,16 @@
     100% {
         transform: translateX(50%);
     }
+}
+
+.detail-nav{
+    text-decoration: none;
+    font-weight: bolder;
+    font-size: 1.2em;
+    color: #3ccc6c;
+    transition: 0.5s color ease;
+}
+.detail-nav:hover{
+    color: #2b974e;
+    transition: 0.5s color ease;
 }

@@ -1,6 +1,6 @@
 #root{
     height: 100vh;
-    background: linear-gradient(105deg, rgba(218,218,230,1) 0%, rgba(255,254,254,1) 99%);
+    background: #eae7e7;
 }
 
 .modalpanel {
