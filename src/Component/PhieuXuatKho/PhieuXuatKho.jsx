@@ -145,7 +145,7 @@ export default function PhieuXuatKho(props){
                 hour12: false
             }), sort: { sortKey: "ngaynhap" }},
         { label: 'Ngày tạo', renderCell: (item) => new Date(item.dateCreated).toLocaleString('En-GB', { hour12: false }), sort: { sortKey: "ngaytao" } },
-        { label: 'Hóa đơn mua hàng', renderCell: (item) => <Link className="detail-nav" to={`/HoaDonNhapHang/${item.receipt.id}`}>{item.receipt.id} </Link>, sort: { sortKey: "idhoadon" } },
+        { label: 'Hóa đơn mua hàng', renderCell: (item) => <Link className="detail-nav" to={`/HoaDonMuaHang/${item.receipt.id}`}>{item.receipt.id} </Link>, sort: { sortKey: "idhoadon" } },
     ];
 
     const handleSearch = (event) => {
