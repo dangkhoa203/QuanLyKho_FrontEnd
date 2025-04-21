@@ -35,7 +35,7 @@ export default function ChiTietHoaDonNhapHang(props) {
         setReceipt(content.data);
     }
     const Delete = async () => {
-        const response = await fetch(`https://warehouseservice.azurewebsites.net/api/v1/vendor-receipts/`, {
+        const response = await fetch(`https://warehouseservice.azurewebsites.net/api/vendor-receipts/`, {
             headers: {'Content-Type': 'application/json'},
             credentials: 'include',
             method: "DELETE",
