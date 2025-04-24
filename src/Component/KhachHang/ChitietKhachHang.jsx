@@ -86,7 +86,7 @@ export default function ChitietKhachHang(props) {
         setCustomer(content.data);
     }
     const Xoa = async () => {
-        const response = await fetch(`https://warehouseservice.azurewebsites.net/api/v1/Customers/`, {
+        const response = await fetch(`https://warehouseservice.azurewebsites.net/api/Customers/`, {
             headers: {'Content-Type': 'application/json'},
             credentials: 'include',
             method: "DELETE",

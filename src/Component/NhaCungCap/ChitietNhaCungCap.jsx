@@ -82,7 +82,7 @@ export default function ChitietNhaCungCap(props) {
         setVendor(content.data);
     }
     const Xoa = async () => {
-        const response = await fetch(`https://warehouseservice.azurewebsites.net/api/v1/Vendors`, {
+        const response = await fetch(`https://warehouseservice.azurewebsites.net/api/Vendors`, {
             headers: {'Content-Type': 'application/json'},
             credentials: 'include',
             method: "DELETE",
