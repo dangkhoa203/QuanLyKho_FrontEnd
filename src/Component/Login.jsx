@@ -72,12 +72,12 @@ export default function Login(props) {
                         <p className="h1 text-center mb-3">Đăng nhập</p>
                         <div className="d-flex flex-column">
                             <div className="form-floating mb-3">
-                                <input type="text" className="form-control rounded-4 border-2"
+                                <input defaultValue="user" type="text" className="form-control rounded-4 border-2"
                                        id="floatingInput" {...register("username")} placeholder="username"/>
                                 <label htmlFor="floatingInput">Tên đăng nhập</label>
                             </div>
                             <div className="form-floating">
-                                <input type={ShowPass ? "text" : "password"} className="form-control rounded-4 border-2"
+                                <input defaultValue="1234" type={ShowPass ? "text" : "password"} className="form-control rounded-4 border-2"
                                        id="floatingInput" {...register("password")} placeholder="password"/>
                                 <label htmlFor="floatingInput">Mật khẩu</label>
                             </div>
