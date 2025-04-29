@@ -34,21 +34,19 @@ function App() {
                 method:"GET"
             });
             if (!response.ok) {
-                const text = await response.text();
-                throw Error(text);
+                setUser({
+                    userName: "",
+                    userFullName: "",
+                    userEmail: "",
+                    userId: "",
+                    isLogged: false
+                })
             }
             const content = await response.json();
             setUser(content);
-        } catch (er) {
-            setUser({
-                userName: "",
-                userFullName: "",
-                userEmail: "",
-                userId: "",
-                isLogged: false
-            })
-        } finally {
             setLoadingScreen(false);
+        } catch (er) {
+           getInfo()
         }
 
     }
